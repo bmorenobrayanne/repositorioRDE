@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_juego"
+    android:padding="32dp"
+    tools:context=".RegistroActivity">
+
+    <RelativeLayout
+        android:id="@+id/contenedorTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="80dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvTituloContorno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="REGISTRO DE JUGADOR"
+            android:textSize="60sp"
+            android:textColor="#000000"
+            android:fontFamily="@font/bangers_regular"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:shadowColor="#1A0000"
+            android:shadowDx="8"
+            android:shadowDy="8"
+            android:shadowRadius="10"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:id="@+id/tvTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="REGISTRO DE JUGADOR"
+            android:textSize="60sp"
+            android:textColor="#CC9900"
+            android:fontFamily="@font/bangers_regular"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+    <!--Campo Nombre -->
+    <EditText
+        android:id="@+id/etNombre"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:hint="Nombre del jugador"
+        android:padding="12dp"
+        android:background="@drawable/boton_dorado_oscuro"
+        android:textColor="#000"
+        android:textColorHint="#444"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/contenedorTitulo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp" />
+
+    <!--Campo Correo -->
+    <EditText
+        android:id="@+id/etCorreo"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:hint="Correo electrónico"
+        android:padding="12dp"
+        android:background="@drawable/boton_dorado_oscuro"
+        android:textColor="#000"
+        android:textColorHint="#444"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/etNombre"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp" />
+
+    <!--Campo Contraseña -->
+    <EditText
+        android:id="@+id/etContrasena"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:hint="Contraseña"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:background="@drawable/boton_dorado_oscuro"
+        android:textColor="#000"
+        android:textColorHint="#444"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/etCorreo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp" />
+
+    <!--Boton Registrar -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnRegistrar"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="128dp"
+        android:background="@drawable/boton_dorado_oscuro"
+        android:padding="14dp"
+        android:text="REGISTRAR"
+        android:textColor="#111"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etContrasena"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+

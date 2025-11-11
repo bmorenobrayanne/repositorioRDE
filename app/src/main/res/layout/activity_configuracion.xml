@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_juego"
+    android:padding="32dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/Configuracion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CONFIGURACIÓN"
+            android:textSize="46sp"
+            android:textColor="#C4FFD700"
+            android:fontFamily="@font/bangers_regular"
+            android:shadowColor="#000000"
+            android:shadowDx="4"
+            android:shadowDy="4"
+            android:shadowRadius="6"
+            android:textStyle="bold"
+            android:layout_marginBottom="50dp" />
+
+        <!-- Imagen del perfil del usuario -->
+        <ImageView
+            android:id="@+id/imgPerfil"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/avatar_neutral"
+            android:contentDescription="Avatar del usuario"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/marco_dorado"
+            android:padding="6dp" />
+
+        <!-- Nombre del usuario -->
+        <TextView
+            android:id="@+id/tvUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="👤 Usuario: Invitado"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:fontFamily="@font/bangers_regular"
+            android:layout_marginBottom="40dp" />
+
+        <!-- Sección de sonido -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/marco_dorado"
+            android:padding="16dp"
+            android:layout_marginBottom="30dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sonido activado"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:fontFamily="@font/bangers_regular" />
+
+            <Switch
+                android:id="@+id/Sonido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:thumbTint="#FFD700"
+                android:trackTint="#CC9900" />
+        </LinearLayout>
+
+        <!-- Botón guardar -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/GuardarConfig"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="GUARDAR"
+            android:background="@drawable/boton_dorado_oscuro"
+            android:textColor="#111"
+            android:padding="12dp"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginBottom="25dp" />
+
+        <!-- Botón cerrar sesión -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCerrarSesion"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="CERRAR SESIÓN"
+            android:background="@drawable/boton_rojo"
+            android:textColor="#FFFFFF"
+            android:padding="12dp"
+            android:textStyle="bold"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+</ScrollView>
+
+
+

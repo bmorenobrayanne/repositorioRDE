@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/fondo_juego"
+    android:padding="32dp">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/tvTituloLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="INICIAR SESIÓN"
+        android:textSize="42sp"
+        android:textColor="#C4FFD700"
+        android:fontFamily="@font/bangers_regular"
+        android:shadowColor="#000000"
+        android:shadowDx="4"
+        android:shadowDy="4"
+        android:shadowRadius="6"
+        android:layout_marginBottom="60dp"
+        android:textStyle="bold" />
+
+    <!-- Campo de usuario -->
+    <EditText
+        android:id="@+id/etCorreo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Correo"
+        android:background="@drawable/marco_dorado"
+        android:padding="14dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#AAAAAA"
+        android:textSize="20sp"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Campo de contraseña -->
+    <EditText
+        android:id="@+id/etContrasena"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Contraseña"
+        android:inputType="textPassword"
+        android:background="@drawable/marco_dorado"
+        android:padding="14dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#AAAAAA"
+        android:textSize="20sp"
+        android:layout_marginBottom="35dp" />
+
+    <!-- Boton de iniciar sesión -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnLogin"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="INICIAR SESIÓN"
+        android:background="@drawable/boton_dorado_oscuro"
+        android:textColor="#111"
+        android:padding="12dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Boton para registrarse -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnRegistrar"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="REGISTRARSE"
+        android:background="@drawable/boton_dorado"
+        android:textColor="#111"
+        android:padding="12dp"
+        android:textStyle="bold"
+        android:textSize="18sp" />
+
+</LinearLayout>
+
