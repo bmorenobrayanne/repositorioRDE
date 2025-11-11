@@ -288,9 +288,9 @@ Incluye diagramas de:
 - 11.1 Arquitectura de Software
 ![Diagrama de Sofware](../diagramas/diagramaArquitectura.png)
 - 11.2 Arquitectura de Aplicaciones
-  ![Diagrama de Aplicaciones](../diagramas/diagramaAplicaciones.png)
+![Diagrama de Aplicaciones](../diagramas/diagramaAplicaciones.png)
 - 11.3 Arquitectura de Integración IA – API Service
-  ![Diagrama de Integracion](../diagramas/diagramaIntegracion.png)
+![Diagrama de Integracion](../diagramas/diagramaIntegracion.png)
 ---
 
 # 12. Escenarios Operativos
@@ -304,7 +304,7 @@ Descripción del flujo natural del usuario:
 ---
 
 # 13. Cronograma
-
+![Cronograma](../diagramas/calendario.PNG)
 
 ---
 
