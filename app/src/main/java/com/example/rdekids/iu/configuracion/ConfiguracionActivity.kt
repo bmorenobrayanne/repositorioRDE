@@ -1,6 +1,5 @@
-package com.example.rdekids
+package com.example.rdekids.iu.configuracion
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
@@ -9,6 +8,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import com.example.rdekids.R
+import com.example.rdekids.iu.login.LoginActivity
 
 class ConfiguracionActivity : AppCompatActivity() {
 
@@ -55,11 +56,11 @@ class ConfiguracionActivity : AppCompatActivity() {
 
     //Obtener nombre del usuario actual desde la sesión activa
     private fun obtenerUsuarioActual(): String? {
-        val prefsSesion = getSharedPreferences("Sesion", Context.MODE_PRIVATE)
+        val prefsSesion = getSharedPreferences("Sesion", MODE_PRIVATE)
         val correoActual = prefsSesion.getString("correoActual", null)
 
         if (correoActual != null) {
-            val prefsUsuarios = getSharedPreferences("Usuarios", Context.MODE_PRIVATE)
+            val prefsUsuarios = getSharedPreferences("Usuarios", MODE_PRIVATE)
             return prefsUsuarios.getString("${correoActual}_nombre", "Invitado")
         }
         return null
@@ -67,7 +68,7 @@ class ConfiguracionActivity : AppCompatActivity() {
 
     //Cerrar sesión correctamente
     private fun cerrarSesion() {
-        val prefs = getSharedPreferences("Sesion", Context.MODE_PRIVATE)
+        val prefs = getSharedPreferences("Sesion", MODE_PRIVATE)
         prefs.edit()
             .putBoolean("logueado", false)
             .remove("correoActual")
@@ -76,20 +77,13 @@ class ConfiguracionActivity : AppCompatActivity() {
 
     //Guardar estado del sonido
     private fun guardarSonido(activo: Boolean) {
-        val prefs = getSharedPreferences("ConfiguracionJuego", Context.MODE_PRIVATE)
+        val prefs = getSharedPreferences("ConfiguracionJuego", MODE_PRIVATE)
         prefs.edit().putBoolean("sonido", activo).apply()
     }
 
     //Obtener estado del sonido
     private fun obtenerSonido(): Boolean {
-        val prefs = getSharedPreferences("ConfiguracionJuego", Context.MODE_PRIVATE)
+        val prefs = getSharedPreferences("ConfiguracionJuego", MODE_PRIVATE)
         return prefs.getBoolean("sonido", true)
     }
 }
-
-
-
-
-
-
-

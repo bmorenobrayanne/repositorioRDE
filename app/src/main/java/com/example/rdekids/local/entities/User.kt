@@ -1,4 +1,4 @@
-package com.example.rdekids.data
+package com.example.rdekids.local.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

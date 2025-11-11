@@ -1,10 +1,11 @@
-package com.example.rdekids
+package com.example.rdekids.iu.resultado
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.rdekids.R
 
 class ResultadoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

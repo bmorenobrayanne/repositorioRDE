@@ -1,6 +1,5 @@
-package com.example.rdekids
+package com.example.rdekids.iu.juego
 
-import android.content.Context
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
@@ -13,10 +12,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.airbnb.lottie.LottieAnimationView
-import com.example.rdekids.data.JuegoDAO
-import com.example.rdekids.data.GoogleSheetsService
-import com.example.rdekids.data.SessionManager
-import java.util.*
+import com.example.rdekids.iu.utils.IAHelper
+import com.example.rdekids.R
+import com.example.rdekids.local.dao.JuegoDAO
+import com.example.rdekids.remote.GoogleSheetsService
+import com.example.rdekids.session.SessionManager
+import java.util.Locale
 
 class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
@@ -64,7 +65,7 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         //Música de fondo
         mediaPlayer = MediaPlayer.create(this, R.raw.jazz)
         mediaPlayer?.isLooping = true
-        val sonidoActivo = getSharedPreferences("ConfiguracionJuego", Context.MODE_PRIVATE).getBoolean("sonido", true)
+        val sonidoActivo = getSharedPreferences("ConfiguracionJuego", MODE_PRIVATE).getBoolean("sonido", true)
         if (sonidoActivo) mediaPlayer?.start()
 
         //Mostrar primera pregunta
@@ -182,7 +183,3 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
     data class Quad(val pregunta: String, val opciones: List<String>, val correct: Int, val fase: String)
 }
-
-
-
-

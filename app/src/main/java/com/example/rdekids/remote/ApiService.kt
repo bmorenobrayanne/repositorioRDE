@@ -1,4 +1,4 @@
-package com.example.rdekids.network
+package com.example.rdekids.remote
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -10,6 +10,7 @@ import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
+import kotlin.collections.iterator
 
 object ApiService {
 
@@ -77,4 +78,3 @@ object ApiService {
                 actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
     }
 }
-

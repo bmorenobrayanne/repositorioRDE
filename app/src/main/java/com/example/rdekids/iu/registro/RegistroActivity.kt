@@ -1,4 +1,4 @@
-package com.example.rdekids
+package com.example.rdekids.iu.registro
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.rdekids.data.GoogleSheetsService
+import com.example.rdekids.R
+import com.example.rdekids.iu.login.LoginActivity
+import com.example.rdekids.remote.GoogleSheetsService
 
 class RegistroActivity : AppCompatActivity() {
 
@@ -90,12 +92,3 @@ class RegistroActivity : AppCompatActivity() {
         }
     }
 }
-
-
-
-
-
-
-
-
-

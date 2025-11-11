@@ -1,12 +1,14 @@
-package com.example.rdekids
+package com.example.rdekids.iu.login
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.rdekids.iu.configuracion.ConfiguracionActivity
+import com.example.rdekids.iu.juego.JuegoActivity
+import com.example.rdekids.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         titulo.startAnimation(bounce)
 
         // 🔹 Verificar sesión activa
-        val prefs = getSharedPreferences("SesionUsuario", Context.MODE_PRIVATE)
+        val prefs = getSharedPreferences("SesionUsuario", MODE_PRIVATE)
         val usuario = prefs.getString("usuarioActual", null)
 
         if (usuario.isNullOrEmpty()) {
@@ -69,7 +71,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
-
-
-

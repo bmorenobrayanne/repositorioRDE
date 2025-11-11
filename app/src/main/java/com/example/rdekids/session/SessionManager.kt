@@ -1,4 +1,4 @@
-package com.example.rdekids.data
+package com.example.rdekids.session
 
 import android.content.Context
 

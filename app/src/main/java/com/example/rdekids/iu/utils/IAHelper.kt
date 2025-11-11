@@ -1,4 +1,4 @@
-package com.example.rdekids
+package com.example.rdekids.iu.utils
 
 object IAHelper {
 

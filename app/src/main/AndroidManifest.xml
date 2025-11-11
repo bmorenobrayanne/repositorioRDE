@@ -13,27 +13,27 @@
 
         <!-- Actividad de configuración -->
         <activity
-            android:name=".ConfiguracionActivity"
+            android:name=".iu.configuracion.ConfiguracionActivity"
             android:exported="false" />
 
         <!-- Actividad de registro -->
         <activity
-            android:name=".RegistroActivity"
+            android:name=".iu.registro.RegistroActivity"
             android:exported="false" />
 
         <!-- Actividad del juego -->
         <activity
-            android:name=".JuegoActivity"
+            android:name=".iu.juego.JuegoActivity"
             android:exported="false" />
 
         <!-- Pantalla principal del juego (menú) -->
         <activity
-            android:name=".MainActivity"
+            android:name=".iu.login.MainActivity"
             android:exported="false" />
 
         <!-- 🔹 LoginActivity será ahora la pantalla inicial -->
         <activity
-            android:name=".LoginActivity"
+            android:name=".iu.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

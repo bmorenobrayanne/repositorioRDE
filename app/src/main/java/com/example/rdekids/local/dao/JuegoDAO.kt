@@ -1,4 +1,4 @@
-package com.example.rdekids.data
+package com.example.rdekids.local.dao
 
 import android.content.Context
 
@@ -25,4 +25,3 @@ class JuegoDAO(private val context: Context) {
         return prefs.getBoolean("partida_guardada", false)
     }
 }
-

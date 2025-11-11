@@ -1,4 +1,4 @@
-package com.example.rdekids.data
+package com.example.rdekids.remote
 
 import android.util.Log
 import kotlinx.coroutines.CoroutineScope
@@ -99,4 +99,3 @@ object GoogleSheetsService {
         }
     }
 }
-

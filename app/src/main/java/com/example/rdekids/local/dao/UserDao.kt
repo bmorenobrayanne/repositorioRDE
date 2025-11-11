@@ -1,8 +1,9 @@
-package com.example.rdekids.data
+package com.example.rdekids.local.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import com.example.rdekids.local.entities.User
 
 @Dao
 interface UserDao {

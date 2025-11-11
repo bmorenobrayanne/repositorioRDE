@@ -1,13 +1,15 @@
-package com.example.rdekids
+package com.example.rdekids.iu.login
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
-import com.example.rdekids.data.GoogleSheetsService
+import com.example.rdekids.iu.login.MainActivity
+import com.example.rdekids.R
+import com.example.rdekids.iu.registro.RegistroActivity
+import com.example.rdekids.remote.GoogleSheetsService
 
 class LoginActivity : AppCompatActivity() {
 
@@ -86,18 +88,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun guardarSesion(nombre: String) {
-        val prefs = getSharedPreferences("SesionUsuario", Context.MODE_PRIVATE)
+        val prefs = getSharedPreferences("SesionUsuario", MODE_PRIVATE)
         prefs.edit()
             .putBoolean("logueado", true)
             .putString("usuarioActual", nombre)
             .apply()
     }
 }
-
-
-
-
-
-
-
-

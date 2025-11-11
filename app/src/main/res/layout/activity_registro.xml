@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/fondo_juego"
     android:padding="32dp"
-    tools:context=".RegistroActivity">
+    tools:context=".iu.registro.RegistroActivity">
 
     <RelativeLayout
         android:id="@+id/contenedorTitulo"
