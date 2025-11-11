@@ -1,203 +1,320 @@
-# 📱 Proyecto **RDE** — Aplicación Educativa en Simulación 3D
+# RDE — Aplicación móvil educativa sobre emergencias sísmicas
+Proyecto Ingeniería de Sistemas — Universidad Antonio Nariño
 
-## 🎓 Universidad Antonio Nariño
-**Facultad de Ingeniería de Sistemas y Computación**  
-**Materia:** Ingeniería de Software  
-**Docente:** *(Nombre del profesor)*  
-**Autores:**
+## Autores
 - Alisson Bonilla
 - Natalia
 - Brayanne Roberto Moreno Ruiz
 
-**Bogotá D.C. — 2025**
+---
+
+## Tabla de Contenido
+- [1. RDE](#1-rde)
+- [2. Introducción](#2-introducción)
+- [3. Descripción general del proyecto](#3-descripción-general-del-proyecto)
+- [4. Objetivos del proyecto](#4-objetivos-del-proyecto)
+    - [4.1 Objetivo General](#41-objetivo-general)
+    - [4.2 Objetivos Específicos](#42-objetivos-específicos)
+- [5. Análisis y requisitos](#5-análisis-y-requisitos)
+    - [5.1 Requerimientos Funcionales](#51-requerimientos-funcionales)
+    - [5.2 Requerimientos de Interfaz](#52-requerimientos-de-interfaz)
+    - [5.3 Requisitos de Rendimiento](#53-requisitos-de-rendimiento)
+    - [5.4 Requisitos No Funcionales](#54-requisitos-no-funcionales)
+- [6. Historias de Usuario y Criterios de Aceptación](#6-historias-de-usuario-y-criterios-de-aceptación)
+- [7. Casos de Uso del Sistema](#7-casos-de-uso-del-sistema)
+- [8. Arquitectura de Software](#8-arquitectura-de-software)
+- [9. Modelado Estructural](#9-modelado-estructural)
+- [10. Modelado de Comportamiento](#10-modelado-de-comportamiento)
+- [11. Diagramas de Arquitectura](#11-diagramas-de-arquitectura)
+- [12. Escenarios Operativos](#12-escenarios-operativos)
+- [13. Cronograma](#13-cronograma)
+- [14. Conclusiones](#14-conclusiones)
+- [15. Bibliografía](#15-bibliografía)
 
 ---
 
-## 📘 ¿Qué es y cómo utilizar *AppMovi (Proyecto Ingeniería)*
-
-Este documento describe el desarrollo y funcionamiento del proyecto **RDE**, una aplicación móvil educativa en forma de videojuego 3D, creada con el propósito de enseñar a los niños cómo actuar correctamente frente a un terremoto.
-
----
-
-## 📑 Tabla de Contenido
-
-1. [Introducción](#introducción)
-2. [Descripción general del proyecto](#descripción-general-del-proyecto)
-3. [Objetivos del proyecto](#objetivos-del-proyecto)
-    - [Objetivo general](#objetivo-general)
-    - [Objetivos específicos](#objetivos-específicos)
-4. [Análisis y requisitos](#análisis-y-requisitos)
-    - [Requerimientos funcionales](#requerimientos-funcionales)
-    - [Requerimientos de interfaz](#requerimientos-de-interfaz)
-    - [Requisitos de rendimiento](#requisitos-de-rendimiento)
-    - [Requisitos no funcionales](#requisitos-no-funcionales)
-5. [Historias de usuario y criterios de aceptación](#historias-de-usuario-y-criterios-de-aceptación)
-6. [Casos de uso del sistema](#casos-de-uso-del-sistema)
-7. [Arquitectura de software](#arquitectura-de-software)
-8. [Modelado estructural](#modelado-estructural)
-9. [Modelado de comportamiento](#modelado-de-comportamiento)
-10. [Diagramas de arquitectura](#diagramas-de-arquitectura)
-11. [Escenarios operativos](#escenarios-operativos)
-12. [Cronograma o calendario actualizado](#cronograma-o-calendario-actualizado)
-13. [Conclusiones](#conclusiones)
-14. [Bibliografía](#bibliografía)
+# 1. RDE
+El propósito de este documento es definir y describir los requisitos del proyecto RDE, explicar la funcionalidad del sistema y sus limitaciones.  
+Fecha límite de entrega del documento: **11/11/2025**.
 
 ---
 
-## 🧩 Introducción
+# 2. Introducción
+RDE es una aplicación móvil educativa desarrollada en **Kotlin**, sin uso de Jetpack Compose, cuyo objetivo principal es enseñar a niños cómo actuar correctamente frente a un terremoto.  
+La app integra servicios de **inteligencia artificial** y consumo de **API Service**, ofreciendo una experiencia interactiva y dinámica.
 
-El proyecto **RDE** busca combinar educación y entretenimiento mediante un videojuego 3D que enseña a los niños cómo actuar adecuadamente durante un terremoto.  
-Desarrollado en **Kotlin (sin Jetpack Compose)**, integra servicios de **inteligencia artificial** y **Firebase** para ofrecer una experiencia interactiva, persistente y educativa.
-
----
-
-## 🧠 Descripción general del proyecto
-
-**RDE** es una aplicación móvil educativa e interactiva desarrollada en **Kotlin**, que simula situaciones reales de emergencia.  
-Los jugadores participan en una historia que evoluciona según sus decisiones y respuestas en trivias educativas.  
-La integración de **IA** permite generar escenarios e imágenes dinámicas, personalizando la experiencia de aprendizaje.
+Este documento detalla los objetivos, requisitos, arquitectura, modelado y aspectos técnicos que definen la estructura del sistema.
 
 ---
 
-## 🎯 Objetivos del Proyecto
+# 3. Descripción general del proyecto
+RDE es una app educativa donde los niños participan en una historia interactiva que evoluciona según sus decisiones y respuestas a trivias.  
+La IA genera contenido visual dinámico para hacer la experiencia más inmersiva.
 
-### Objetivo General
-Desarrollar una aplicación móvil interactiva que integre inteligencia artificial para enseñar a los niños cómo actuar ante un terremoto, mediante un entorno educativo 3D.
-
-### Objetivos Específicos
-- Implementar un sistema de registro e inicio de sesión básico.
-- Diseñar una interfaz 3D interactiva adaptada al público infantil.
-- Integrar trivias que refuercen el aprendizaje del usuario.
-- Usar IA para generar imágenes o escenarios educativos personalizados.
-- Garantizar persistencia de datos en Firebase.
-- Permitir la expansión futura hacia otros desastres naturales (incendios, inundaciones, etc.).
+El sistema incluye:
+- Registro e inicio de sesión
+- Trivias
+- Generación de escenas por IA
+- Guardado y recuperación de partidas
 
 ---
 
-## ⚙️ Análisis y Requisitos
+# 4. Objetivos del proyecto
 
-### 5.1 Requerimientos Funcionales
-1. El sistema debe permitir al usuario iniciar sesión con su nombre o alias.
-2. El usuario podrá seleccionar una categoría de entrenamiento (“Modo Terremoto”).
-3. El sistema debe crear, cargar y reanudar partidas guardadas.
-4. La aplicación presentará trivias educativas durante el juego.
-5. La IA generará imágenes o escenarios según las respuestas del jugador.
-6. El sistema guardará progreso y mostrará historial de partidas.
-7. El usuario podrá salir o reanudar el juego en cualquier momento.
+## 4.1 Objetivo General
+Desarrollar una aplicación móvil educativa con integración de IA que enseñe a los niños cómo actuar ante un terremoto mediante un entorno interactivo y dinámico.
 
-### 5.2 Requerimientos de Interfaz
-- Interfaz intuitiva, colorida y adecuada para niños.
-- Botones grandes y elementos visuales claros.
-- Pantallas principales: inicio, menú, escena 3D, trivias, resultados.
-- Coherencia visual con el tema “terremoto”.
-- Integración visual con las imágenes generadas por IA.
-
-### 5.3 Requisitos de Rendimiento
-- Carga inicial menor a **3 segundos**.
-- Frecuencia mínima de **25 FPS**.
-- Peticiones a IA y Firebase en menos de **2 segundos**.
-- Uso de memoria ≤ 70 % del dispositivo.
-
-### 5.4 Requisitos No Funcionales
-
-**Seguridad:**
-- Autenticación segura con Firebase.
-- Sin almacenamiento de información sensible en texto plano.
-- Validación de entradas para prevenir ataques.
-
-**Fiabilidad:**
-- Guardado automático del progreso.
-- Manejo de errores de conexión con mensajes claros.
-
-**Mantenibilidad:**
-- Código organizado bajo arquitectura **MVVM**.
-- Nombres descriptivos y comentarios en el código.
-
-**Portabilidad:**
-- Compatible con **Android 8.0 (API 26)** o superior.
-
-**Extensibilidad:**
-- Posibilidad de agregar nuevas categorías de desastres sin alterar el núcleo del juego.
-
-**Reutilización:**
-- Módulos de usuario, IA y Firebase reutilizables en futuras versiones.
+## 4.2 Objetivos Específicos
+A. Implementar un sistema básico de registro e inicio de sesión.  
+B. Diseñar una interfaz interactiva orientada al público infantil.  
+C. Integrar trivias para evaluar el aprendizaje.  
+D. Incorporar IA para generar imágenes o escenarios personalizados.  
+E. Permitir guardar y reanudar partidas.  
+F. Facilitar navegación por categorías de entrenamiento.
 
 ---
 
-## 👥 Historias de Usuario y Criterios de Aceptación
+# 5. Análisis y requisitos
 
-### 🎮 Rol: Jugador
-- **HU1** — Registro e ingreso al juego
-- **HU2** — Selección de categoría
-- **HU3** — Crear nueva partida
-- **HU4** — Reanudar partida guardada
-- **HU5** — Resolver trivias
-- **HU6** — Recibir retroalimentación de IA
-- **HU7** — Guardar progreso
-- **HU8** — Salir del juego
+## 5.1 Requerimientos Funcionales
+1. Ingreso del nombre e inicio de sesión.
+2. Crear, cargar y reanudar partidas.
+3. Presentación de trivias educativas.
+4. Generación de imágenes por IA.
+5. Guardado de progreso del jugador.
+6. Reanudar o salir del juego en cualquier momento.
 
-### 🛠️ Rol: Administrador
-- **HU9** — Gestión de contenido educativo
-- **HU10** — Monitorear progreso de jugadores
+## 5.2 Requerimientos de Interfaz
+1. Interfaz intuitiva, colorida y para niños.
+2. Elementos grandes y visibles.
+3. Pantallas principales:
+    - Inicio
+    - Trivias
+    - Puntaje
+4. Integración con imágenes generadas por IA.
 
-### 🤖 Rol: Inteligencia Artificial
-- **HU11** — Generar contenido visual personalizado
-- **HU12** — Proporcionar retroalimentación educativa
+## 5.3 Requisitos de Rendimiento
+- Peticiones a IA y API < 2s.
+- Uso de RAM < 70 %.
+
+## 5.4 Requisitos No Funcionales
+
+### Seguridad
+- No almacenar datos sensibles en texto plano.
+- Validaciones contra inyección de datos.
+
+### Fiabilidad
+- Guardado automático en eventos inesperados.
+- Manejo de errores de conexión.
+
+### Mantenibilidad
+- Arquitectura MVVM.
+- Código claro y documentado.
+
+### Portabilidad
+- Android 8.0 (API 26) o superior.
+
+### Extensibilidad
+- Permitir agregar nuevos modos (incendios, inundaciones).
+
+### Reutilización
+- Módulos de usuarios, almacenamiento y IA reutilizables.
+
+### Uso de recursos
+- Peticiones IA limitadas a lo esencial.
 
 ---
 
-## 🧱 Modelado Estructural
+# 6. Historias de Usuario y Criterios de Aceptación
+Rol: Jugador
+________________________________________
+HU1 – Registro o ingreso al juego
+Como jugador,
+quiero ingresar al juego utilizando mi nombre o alias,
+para que el sistema guarde mi progreso y personalice mi experiencia.
+Criterios de aceptación:
+•	El jugador debe poder ingresar un nombre o alias antes de iniciar el juego.
+•	El sistema debe validar que el campo no esté vacío.
+•	Al confirmar, se debe crear o cargar una partida vinculada al jugador.
+•	El sistema debe mostrar un mensaje de bienvenida con el nombre del jugador.
+•	Fin del criterio de aceptación.
+________________________________________
+HU2 – Selección de categoría de entrenamiento
+Como jugador,
+quiero seleccionar una categoría (por ejemplo, modo terremoto),
+para iniciar una partida relacionada con ese escenario educativo.
+Criterios de aceptación:
+•	El sistema debe mostrar las categorías disponibles.
+•	Al seleccionar “Modo Terremoto”, debe cargarse la historia y los retos asociados.
+•	El sistema debe permitir agregar futuras categorías sin alterar el flujo actual.
+•	Fin del criterio de aceptación.
+________________________________________
+HU3 – Iniciar nueva partida
+Como jugador,
+quiero crear una nueva partida,
+para comenzar desde el inicio del juego y registrar mi progreso.
+Criterios de aceptación:
+•	El sistema debe mostrar un botón o menú para crear nueva partida.
+•	Al crearla, se deben inicializar las variables de progreso del jugador.
+•	El sistema debe confirmar la creación con un mensaje visual.
+•	Fin del criterio de aceptación.
+________________________________________
+HU4 – Reanudar partida guardada
+Como jugador,
+quiero reanudar mi partida guardada,
+para continuar el progreso desde el punto donde la dejé.
+Criterios de aceptación:
+•	El jugador debe poder consultar una lista de partidas guardadas.
+•	El sistema debe cargar correctamente el estado de la partida (nivel, respuestas, etc.).
+•	Si no hay partidas guardadas, debe mostrar un mensaje informativo.
+•	Fin del criterio de aceptación.
 
-### Diagrama de Clases (UML)
-![Diagrama de Clases](../diagramas/my_diagramadeclases.png)
+
+________________________________________
+HU5 – Jugar y resolver trivias
+Como jugador,
+quiero responder trivias o preguntas interactivas,
+para aprender las acciones correctas en situaciones de emergencia.
+Criterios de aceptación:
+•	El sistema debe presentar preguntas con opciones de respuesta.
+•	Al responder, debe mostrar retroalimentación inmediata (correcta/incorrecta).
+•	Las respuestas correctas deben influir en la evolución de la historia.
+•	Fin del criterio de aceptación.
+________________________________________
+HU7 – Guardar progreso del jugador
+Como jugador,
+quiero guardar mi progreso actual,
+para poder continuar más adelante desde el mismo punto.
+Criterios de aceptación:
+•	El sistema debe guardar los datos en Firebase (nivel, puntaje, decisiones).
+•	La operación de guardado debe confirmarse visualmente.
+•	Debe existir persistencia incluso si la app se cierra inesperadamente.
+
+________________________________________
+HU8 – Salir del juego
+Como jugador,
+quiero salir del juego de forma segura,
+para cerrar la aplicación sin perder mi información.
+Criterios de aceptación:
+•	Al seleccionar “Salir”, el sistema debe guardar automáticamente el progreso.
+•	La app debe cerrar la sesión y volver a la pantalla inicial.
+•	Fin del criterio de aceptación.
+•
+________________________________________
+
+Rol: Inteligencia Artificial
+________________________________________
+HU9 – Generar contenido visual personalizado
+Como sistema de inteligencia artificial,
+quiero generar imágenes o escenas según las respuestas del jugador,
+para adaptar la historia de manera visual e interactiva.
+Criterios de aceptación:
+•	El sistema debe recibir la decisión del jugador como entrada.
+•	Debe producir un resultado visual coherente (imagen o escena).
+•	El tiempo de generación no debe exceder los 3 segundos.
+•	Fin del criterio de aceptación.
+________________________________________
+HU10 – Proporcionar retroalimentación educativa
+Como sistema de inteligencia artificial,
+quiero ofrecer mensajes de refuerzo y corrección,
+para apoyar el aprendizaje del jugador de manera personalizada.
+Criterios de aceptación:
+•	El sistema debe analizar la respuesta del jugador.
+•	Debe generar un mensaje o audio educativo.
+•	Si la IA no responde, debe mostrarse una retroalimentación por defecto.
+•	Fin del criterio de aceptación.
 
 
-### Otros Diagramas
+# 7. Casos de Uso del Sistema
+
+## 7.1 Actores
+- **Usuario (Niño)**: Juega, responde, toma decisiones.
+- **Sistema RDE**: Procesa lógica del juego.
+- **Servicio de IA**: Genera imágenes dinámicas.
+- **Google Sheets / API externa**: Servicios externos opcionales.
+
+## 7.2 Casos de Uso
+Incluyen registro, inicio de sesión, iniciar partida, responder trivias, generación IA, guardado, reanudar partida.
+
+---
+
+# 8. Arquitectura de Software
+El proyecto RDE sigue una arquitectura modular basado en MVVM
+
+## 8.1 Principios SOLID aplicados
+![Principio SOLID](../diagramas/principiosSOLID.PNG)
+
+## 8.2 Patrón Arquitectónico: MVVM
+![Patron Aquitectonico](../diagramas/PatronAquitectura.PNG)
+
+## 8.3 Microservicios utilizados
+![MicroServicios Utilizados](../diagramas/serviciosUtilizados.PNG)
+
+## 8.4 Diagramas C4
+![Diagrama Contexto](../diagramas/diagramaC4.png)
+---
+![Diagrama de contenedores](../diagramas/diagramac4Contenedores.png)
+---
+![Diagrama de Componentes](../diagramas/diagramac4Componentes.png)
+
+---
+
+# 9. Modelado Estructural
+Incluye diagramas de:
+- Diagrama de Clases
+![Diagrama de Clases](../diagramas/diagramaClases.png)
+- Diagrama de Objetos
+![Diagrama de Objetos](../diagramas/diagramaObjetos.png)
 - Diagrama de Componentes
-- Diagrama de Despliegue (Android + Firebase)
+![Diagrama de Componentes](../diagramas/diagramaComponentes.png)
+- Diagrama de Despliegue
+![Diagrama de Despliegue](../diagramas/diagramaDespliegue.png)
 - Diagrama de Paquetes (MVVM)
+- ![Diagrama de Clases](../diagramas/diagraArquitectura.png)
 
 ---
 
-## 🔁 Modelado de Comportamiento
-![Diagrama de casos de uso](../diagramas/my_diagramaclasesdeuso.png)
-- Diagrama de Actividad
-- Diagrama de Estado
-- Diagrama de Secuencia
+# 10. Modelado de Comportamiento
+---
+- 10.1 Diagrama de Casos De Uso
+![Diagrama de Casos de Uso](../diagramas/diagramaComportamiento.png)
+- 10.2 Diagrama de Actividad
+![Diagrama de Actividad](../diagramas/diagramaActividadFlujo.png)
+- 10.3 Diagrama de Estado
+  ![Diagrama de Estado](../diagramas/diagramaEstados.png)
+- 10.4 Diagrama de Secuencia
+  ![Diagrama de Secuencia](../diagramas/diagramaSecuencia.png)
+# 11. Diagramas de Arquitectura
+- 11.1 Arquitectura de Software
+![Diagrama de Sofware](../diagramas/diagramaArquitectura.png)
+- 11.2 Arquitectura de Aplicaciones
+  ![Diagrama de Aplicaciones](../diagramas/diagramaAplicaciones.png)
+- 11.3 Arquitectura de Integración IA – API Service
+  ![Diagrama de Integracion](../diagramas/diagramaIntegracion.png)
+---
+
+# 12. Escenarios Operativos
+Descripción del flujo natural del usuario:
+- Registro
+- Selección de modo
+- Juego interactivo
+- IA generando contenido
+- Guardado y reanudación
 
 ---
 
-## 🧩 Arquitectura de Software
+# 13. Cronograma
 
-- Aplicación del principio **SOLID**.
-- Patrón arquitectónico **MVVM**, con mención del patrón **Hexagonal** como alternativa avanzada.
-- Uso de microservicios externos solo para integración de IA (Play.ht).
-- Diagramas **C4** (Contexto, Contenedores, Componentes).
 
 ---
 
-## 📆 Cronograma
-
-| Fase | Actividad | Fecha estimada |
-|------|------------|----------------|
-| 1 | Análisis y Requisitos | Octubre 2025 |
-| 2 | Modelado y Diseño | Octubre–Noviembre 2025 |
-| 3 | Desarrollo e Integración | Noviembre 2025 |
-| 4 | Pruebas y Documentación Final | Diciembre 2025 |
+# 14. Conclusiones
+RDE demuestra el potencial del aprendizaje interactivo mediante IA.  
+La arquitectura MVVM garantiza escalabilidad y mantenibilidad.  
+La IA mejora la inmersión educativa y personalización.
 
 ---
 
-## 🧾 Conclusiones
-
-El proyecto **RDE** representa una integración efectiva entre la educación y la tecnología, aplicando principios de ingeniería de software y herramientas modernas para crear una experiencia educativa interactiva y significativa para los niños.
-
----
-
-## 📚 Bibliografía
-
-- Pressman, R. S. *Ingeniería de Software: Un Enfoque Práctico.*
-- Sommerville, I. *Software Engineering.*
-- Documentación oficial de Firebase y Kotlin.
-
----
-
+# 15. Bibliografía
+- Android Developer Documentation
+- Room Persistence Library Documentation  
