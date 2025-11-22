@@ -43,6 +43,34 @@
                 android:textColor="#FFFFFF"
                 android:layout_marginEnd="16dp" />
 
+            <LinearLayout
+                android:id="@+id/Vidas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/corazon1"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/corazon_lleno"/>
+
+                <ImageView
+                    android:id="@+id/corazon2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/corazon_lleno"/>
+
+                <ImageView
+                    android:id="@+id/corazon3"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/corazon_lleno"/>
+            </LinearLayout>
+
+
             <TextView
                 android:id="@+id/tvPuntaje"
                 android:layout_width="wrap_content"

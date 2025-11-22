@@ -4,12 +4,27 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.rdekids.local.dao.UserDao
-import com.example.rdekids.local.entities.User
+import com.example.rdekids.local.dao.UsuarioDao
+import com.example.rdekids.local.dao.PuntajeDao
+import com.example.rdekids.local.entities.Usuario
+import com.example.rdekids.local.entities.Puntaje
+import com.example.rdekids.repository.SyncRepository
+import com.example.rdekids.tareas.Tarea
+import com.example.rdekids.tareas.TareaDao
 
-@Database(entities = [User::class], version = 1)
+
+
+@Database(
+    entities = [Usuario::class, Puntaje::class, Tarea::class],
+    version = 2,
+    exportSchema = false
+)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun userDao(): UserDao
+
+    abstract fun usuarioDao(): UsuarioDao
+    abstract fun puntajeDao(): PuntajeDao
+
+    abstract fun tareaDao(): TareaDao
 
     companion object {
         @Volatile

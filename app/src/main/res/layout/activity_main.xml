@@ -43,13 +43,12 @@
                 android:text="RDE KIDS"
                 android:textSize="90sp"
                 android:textColor="#CC9900"
-                android:fontFamily="@font/bangers_regular"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_centerInParent="true" />
+            android:fontFamily="@font/bangers_regular"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_centerInParent="true" />
         </RelativeLayout>
 
-        <!-- 🔹 NUEVO: Mostrar usuario actual -->
         <TextView
             android:id="@+id/tvUsuario"
             android:layout_width="wrap_content"
@@ -105,3 +104,7 @@
 
     </LinearLayout>
 </ScrollView>
+
+
+
+

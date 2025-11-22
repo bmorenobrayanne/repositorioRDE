@@ -1,93 +1,67 @@
 package com.example.rdekids.iu.registro
 
+
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.rdekids.R
+import com.example.rdekids.databinding.ActivityRegistroBinding
 import com.example.rdekids.iu.login.LoginActivity
-import com.example.rdekids.remote.GoogleSheetsService
+import com.example.rdekids.local.entities.Usuario
+import com.example.rdekids.local.factory.UsuarioViewModelFactory
+import com.example.rdekids.local.viewModel.UsuarioViewModel
+import com.example.rdekids.myApp.MyApp
 
 class RegistroActivity : AppCompatActivity() {
 
-    private lateinit var etNombre: EditText
-    private lateinit var etCorreo: EditText
-    private lateinit var etContrasena: EditText
-    private lateinit var btnRegistrar: Button
+    private lateinit var binding: ActivityRegistroBinding
+    private val viewModel: UsuarioViewModel by viewModels {
+        UsuarioViewModelFactory((application as MyApp).syncRepo,
+        applicationContext)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_registro)
+        binding = ActivityRegistroBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        etNombre = findViewById(R.id.etNombre)
-        etCorreo = findViewById(R.id.etCorreo)
-        etContrasena = findViewById(R.id.etContrasena)
-        btnRegistrar = findViewById(R.id.btnRegistrar)
+        // ---------------- BOTÓN REGISTRAR ----------------
+        binding.btnRegistrar.setOnClickListener {
 
-        btnRegistrar.setOnClickListener {
-            val nombre = etNombre.text.toString().trim()
-            val correo = etCorreo.text.toString().trim()
-            val contrasena = etContrasena.text.toString().trim()
+            val nombre = binding.etNombre.text.toString().trim()
+            val correo = binding.etCorreo.text.toString().trim()
+            val contrasena = binding.etContrasena.text.toString().trim()
 
+            // Validación básica
             if (nombre.isEmpty() || correo.isEmpty() || contrasena.isEmpty()) {
-                Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            //Verificar si el usuario o correo ya están registrados
-            verificarYRegistrarUsuario(nombre, correo, contrasena)
+            val usuario = Usuario(
+                nombre = nombre,
+                correo = correo,
+                contrasena = contrasena
+            )
+
+            viewModel.registrarUsuario(usuario)
+
+            // Intento inmediato de sincronización si hay internet
+            viewModel.sincronizar()
         }
-    }
 
-    private fun verificarYRegistrarUsuario(nombre: String, correo: String, contrasena: String) {
-        Toast.makeText(this, "Verificando usuario...", Toast.LENGTH_SHORT).show()
-
-        GoogleSheetsService.obtenerUsuarios { usuariosArray ->
-            runOnUiThread {
-                if (usuariosArray == null) {
-                    Toast.makeText(this, "Error al conectar con el servidor", Toast.LENGTH_SHORT).show()
-                    return@runOnUiThread
-                }
-
-                var existe = false
-                for (i in 0 until usuariosArray.length()) {
-                    val user = usuariosArray.getJSONObject(i)
-                    val nombreExistente = user.optString("nombre", "")
-                    val correoExistente = user.optString("correo", "")
-
-                    if (nombre.equals(nombreExistente, ignoreCase = true) ||
-                        correo.equals(correoExistente, ignoreCase = true)) {
-                        existe = true
-                        break
-                    }
-                }
-
-                if (existe) {
-                    Toast.makeText(this, "El usuario o correo ya están registrados.", Toast.LENGTH_LONG).show()
-                } else {
-                    registrarUsuario(nombre, correo, contrasena)
-                }
+        // ---------------- OBSERVADORES ----------------
+        viewModel.registroExitoso.observe(this) { exito ->
+            if (exito) {
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
             }
         }
-    }
 
-    private fun registrarUsuario(nombre: String, correo: String, contrasena: String) {
-        Toast.makeText(this, "Registrando usuario...", Toast.LENGTH_SHORT).show()
-
-        //Registrar usuario incluyendo la contraseña
-        GoogleSheetsService.registrarUsuario(nombre, correo, contrasena) { exito, mensaje ->
-            runOnUiThread {
-                Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
-
-                if (exito) {
-                    //Si el registro exitoso redirigir al login
-                    val intent = Intent(this, LoginActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
-                    finish()
-                }
+        viewModel.errorRegistro.observe(this) { errorMsg ->
+            if (errorMsg != null) {
+                Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show()
             }
         }
     }

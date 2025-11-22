@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".myApp.MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,27 +13,43 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RDEKids">
 
-        <!-- Actividad de configuración -->
+        <activity
+            android:name=".iu.juego.SeleccionObjetosActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".iu.niveles.SeleccionNivelActivity"
+            android:exported="false" />
+
+        <!-- NETWORK RECEIVER PARA REINTENTAR CUANDO VUELVA EL INTERNET -->
+        <receiver
+            android:name=".receiver.NetworkReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
         <activity
             android:name=".iu.configuracion.ConfiguracionActivity"
             android:exported="false" />
 
-        <!-- Actividad de registro -->
         <activity
             android:name=".iu.registro.RegistroActivity"
             android:exported="false" />
 
-        <!-- Actividad del juego -->
         <activity
             android:name=".iu.juego.JuegoActivity"
             android:exported="false" />
 
-        <!-- Pantalla principal del juego (menú) -->
+        <activity
+            android:name=".tareas.TareasActivity"
+            android:exported="false" />
+
         <activity
             android:name=".iu.login.MainActivity"
             android:exported="false" />
 
-        <!-- 🔹 LoginActivity será ahora la pantalla inicial -->
         <activity
             android:name=".iu.login.LoginActivity"
             android:exported="true">
@@ -44,5 +62,3 @@
     </application>
 
 </manifest>
-
-

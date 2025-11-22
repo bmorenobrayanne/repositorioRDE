@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_juego"
+    android:padding="24dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/Fase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selecciona una fase"
+            android:textSize="38sp"
+            android:textColor="#FFD700"
+            android:fontFamily="@font/bangers_regular"
+            android:shadowColor="#000000"
+            android:shadowDx="4"
+            android:shadowDy="4"
+            android:shadowRadius="6"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="30dp"/>
+
+        <!-- FILA 1 - ANTES -->
+        <LinearLayout
+            android:id="@+id/filaAntes"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/Fase"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/puertaAntes"
+                android:src="@drawable/puerta_antes"
+                android:layout_width="110dp"
+                android:layout_height="160dp" />
+
+            <TextView
+                android:text="ANTES"
+                android:textColor="#FFD700"
+                android:textSize="28sp"
+                android:fontFamily="@font/bangers_regular"
+                android:shadowColor="#000000"
+                android:shadowDx="4"
+                android:shadowDy="4"
+                android:shadowRadius="6"
+                android:layout_marginStart="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!-- FILA 2 - DURANTE -->
+        <LinearLayout
+            android:id="@+id/filaDurante"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/filaAntes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/puertaDurante"
+                android:src="@drawable/puerta_durante"
+                android:layout_width="110dp"
+                android:layout_height="160dp" />
+
+            <TextView
+                android:text="DURANTE"
+                android:textColor="#FFD700"
+                android:textSize="28sp"
+                android:fontFamily="@font/bangers_regular"
+                android:shadowColor="#000000"
+                android:shadowDx="4"
+                android:shadowDy="4"
+                android:shadowRadius="6"
+                android:layout_marginStart="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <!-- FILA 3 - DESPUÉS -->
+        <LinearLayout
+            android:id="@+id/filaDespues"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintTop_toBottomOf="@id/filaDurante"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/puertaDespues"
+                android:src="@drawable/puerta_despues"
+                android:layout_width="110dp"
+                android:layout_height="160dp" />
+
+            <TextView
+                android:text="DESPUÉS"
+                android:textColor="#FFD700"
+                android:textSize="28sp"
+                android:fontFamily="@font/bangers_regular"
+                android:shadowColor="#000000"
+                android:shadowDx="4"
+                android:shadowDy="4"
+                android:shadowRadius="6"
+                android:layout_marginStart="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

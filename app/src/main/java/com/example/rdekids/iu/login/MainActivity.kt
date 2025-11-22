@@ -6,9 +6,10 @@ import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.rdekids.iu.configuracion.ConfiguracionActivity
 import com.example.rdekids.iu.juego.JuegoActivity
+import com.example.rdekids.iu.configuracion.ConfiguracionActivity
 import com.example.rdekids.R
+import com.example.rdekids.iu.niveles.SeleccionNivelActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
         //Botón INICIAR
         btnIniciar.setOnClickListener {
-            val intent = Intent(this, JuegoActivity::class.java)
+            val intent = Intent(this, SeleccionNivelActivity::class.java)
             startActivity(intent)
         }
 

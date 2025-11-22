@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.example.rdekids.R
 import com.example.rdekids.iu.login.LoginActivity
+import com.example.rdekids.tareas.TareasActivity
 
 class ConfiguracionActivity : AppCompatActivity() {
 
@@ -18,6 +19,7 @@ class ConfiguracionActivity : AppCompatActivity() {
     private lateinit var btnCerrarSesion: AppCompatButton
     private lateinit var tvUsuario: TextView
     private lateinit var imgPerfil: ImageView
+    private lateinit var btnVerTareas: AppCompatButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +30,7 @@ class ConfiguracionActivity : AppCompatActivity() {
         btnCerrarSesion = findViewById(R.id.btnCerrarSesion)
         tvUsuario = findViewById(R.id.tvUsuario)
         imgPerfil = findViewById(R.id.imgPerfil)
+        btnVerTareas = findViewById(R.id.btnVerTareas)
 
         //Mostrar el nombre del usuario actual o "Invitado"
         val usuario = obtenerUsuarioActual()
@@ -35,6 +38,14 @@ class ConfiguracionActivity : AppCompatActivity() {
 
         //Cargar el valor guardado del sonido
         switchSonido.isChecked = obtenerSonido()
+
+        //Ver Tareas
+
+        btnVerTareas.setOnClickListener {
+            val intent = Intent(this, TareasActivity::class.java)
+            startActivity(intent)
+        }
+
 
         //Guardar configuración
         btnGuardar.setOnClickListener {
