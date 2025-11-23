@@ -10,67 +10,25 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/tituloInput"
-            android:hint="Título de la tarea"
+        <!-- TÍTULO -->
+        <TextView
+            android:id="@+id/tituloPartidas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/boton_dorado_oscuro"
-            android:padding="12dp"
-            android:textColor="#111"
+            android:text="PARTIDAS JUGADAS"
+            android:textColor="@color/white"
             android:textStyle="bold"
-            android:textSize="18sp"
-            android:layout_marginBottom="10dp"/>
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_marginBottom="20dp" />
 
-        <EditText
-            android:id="@+id/descripcionInput"
-            android:hint="Descripción"
+        <!-- RECYCLER PARA TARJETAS -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerPartidas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/boton_dorado_oscuro"
-            android:padding="12dp"
-            android:textColor="#111"
-            android:textSize="18sp"
-            android:layout_marginBottom="10dp"/>
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never"/>
 
-        <EditText
-            android:id="@+id/fechaInput"
-            android:hint="Fecha"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/boton_dorado_oscuro"
-            android:padding="12dp"
-            android:textColor="#111"
-            android:textSize="18sp"
-            android:layout_marginBottom="10dp"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnGuardar"
-            android:text="GUARDAR TAREA"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/boton_rojo"
-            android:textColor="#FFF"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"
-            android:padding="14dp"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnEliminarTodo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ELIMINAR TODAS LAS TAREAS"
-            android:background="@drawable/boton_rojo"
-            android:textColor="#FFF"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"
-            android:padding="14dp"/>
-
-        <LinearLayout
-            android:id="@+id/listaTareas"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp"/>
     </LinearLayout>
 </ScrollView>

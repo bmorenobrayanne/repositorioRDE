@@ -30,6 +30,7 @@ object GoogleSheetsService {
 
                 val json = JSONObject().apply {
                     put("action", "enviarPuntaje")
+                    //agregar id
                     put("usuario", usuario)
                     put("puntaje", puntaje)
                 }

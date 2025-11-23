@@ -460,7 +460,7 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             try {
                 AppDatabase.getDatabase(this@JuegoActivity)
                     .puntajeDao()
-                   // .insert(p)
+                    .insert(p)
             } catch (e: Exception) {
                 Log.e("JuegoActivity", "Error guardando puntaje: ${e.message}")
             }
