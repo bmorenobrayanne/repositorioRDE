@@ -98,7 +98,7 @@ class LoginActivity : AppCompatActivity() {
                             guardarSesion(correo, nombre)
 
                             // 🔄 Sincronización general
-                            syncViewModel.sincronizarTodo()
+                            syncViewModel.sincronizarTodo(applicationContext)
 
                             Toast.makeText(this, "Bienvenido $nombre", Toast.LENGTH_SHORT).show()
 

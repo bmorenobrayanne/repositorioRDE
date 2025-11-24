@@ -1,16 +1,19 @@
 package com.example.rdekids.repository
 
+
 import android.content.Context
+import android.util.Log
+import com.example.rdekids.local.AppDataBaseRoom
 import com.example.rdekids.remote.GoogleSheetsService
-import com.example.rdekids.local.AppDatabase
 import com.example.rdekids.local.entities.Puntaje
 import com.example.rdekids.local.entities.Usuario
+import com.example.rdekids.utils.NetworkUtils.hayInternet
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 
 class SyncRepository(
-    private val db: AppDatabase,
+    private val dbroom: AppDataBaseRoom,
     private val context: Context
 ) {
 
@@ -18,21 +21,16 @@ class SyncRepository(
     //                  USUARIOS
     // -------------------------------------------------
 
-
-    // ⭐ NUEVO: Registrar usuario offline → siempre con sincronizado = false
+    // Registrar usuario offline → siempre con synced = false
     suspend fun registrarUsuarioOffline(usuario: Usuario) = withContext(Dispatchers.IO) {
         val usuarioPendiente = usuario.copy(synced = false)
-        db.usuarioDao().insert(usuarioPendiente)
+        dbroom.usuarioDao().insert(usuarioPendiente)
     }
 
-    suspend fun iniciarSesionLocal(correo: String, contrasena: String): Usuario? =
-        withContext(Dispatchers.IO) {
-            db.usuarioDao().iniciarSesion(correo, contrasena)
-        }
 
     suspend fun obtenerUsuarioPorCorreoLocal(correo: String): Usuario? =
         withContext(Dispatchers.IO) {
-            db.usuarioDao().obtenerUsuarioPorCorreo(correo)
+            dbroom.usuarioDao().obtenerUsuarioPorCorreo(correo)
         }
 
 
@@ -41,12 +39,14 @@ class SyncRepository(
     // -------------------------------------------------
 
     suspend fun guardarPuntajeLocal(puntaje: Puntaje) = withContext(Dispatchers.IO) {
-        db.puntajeDao().insert(puntaje)
+        val p = puntaje.copy(synced = false)
+        dbroom.puntajeDao().insert(p)
+        Log.d("ROOM_PUNTAJE", "Puntaje almacenado localmente → ID = ${p.id}, Usuario = ${p.usuario}, Puntaje = ${p.puntaje}, Fecha = ${p.fecha}")
     }
 
     suspend fun obtenerPuntajesDeUsuarioLocal(nombreJugador: String): List<Puntaje> =
         withContext(Dispatchers.IO) {
-            db.puntajeDao().obtenerPuntajesDeUsuario(nombreJugador)
+            dbroom.puntajeDao().obtenerPuntajesDeUsuario(nombreJugador)
         }
 
 
@@ -54,9 +54,8 @@ class SyncRepository(
     //                SINCRONIZACIÓN
     // -------------------------------------------------
 
-    // ⭐ NUEVO: Solo sincroniza usuarios pendientes
     suspend fun sincronizarUsuariosPendientes() = withContext(Dispatchers.IO) {
-        val usuariosPendientes = db.usuarioDao().getPendientes()
+        val usuariosPendientes = dbroom.usuarioDao().getPendientes()
 
         for (u in usuariosPendientes) {
 
@@ -69,17 +68,27 @@ class SyncRepository(
             }
 
             if (GoogleSheetsService.enviarPostSimple(json)) {
-                db.usuarioDao().marcarSincronizado(u.id)
+                dbroom.usuarioDao().marcarSincronizado(u.id)
             }
         }
     }
 
-    // 🔄 YA EXISTENTE, PERO AHORA INCLUYE AUTOMÁTICAMENTE REGISTROS OFFLINE
-    suspend fun sincronizarTodo() = withContext(Dispatchers.IO) {
+    suspend fun sincronizarTodo(context: Context) = withContext(Dispatchers.IO) {
 
-        // 1️⃣ Usuarios
-        val usuariosPend = db.usuarioDao().getPendientes()
+        // 🔍 1. Verificar internet antes de sincronizar
+        if (!hayInternet(context)) {
+            Log.w("SYNC", "No hay internet. No se sincroniza nada.")
+            return@withContext
+        }
+
+        Log.d("SYNC", "Iniciando sincronización...")
+
+        // 1️⃣ Usuarios pendientes
+        val usuariosPend = dbroom.usuarioDao().getPendientes()
+        Log.d("SYNC", "Usuarios pendientes por sincronizar: ${usuariosPend.size}")
+
         for (u in usuariosPend) {
+
             val json = JSONObject().apply {
                 put("action", "registrarUsuario")
                 put("nombre", u.nombre)
@@ -88,14 +97,23 @@ class SyncRepository(
                 put("fechaRegistro", u.fecha)
             }
 
-            if (GoogleSheetsService.enviarPostSimple(json)) {
-                db.usuarioDao().marcarSincronizado(u.id)
+            val enviado = GoogleSheetsService.enviarPostSimple(json)
+
+            if (enviado) {
+                dbroom.usuarioDao().marcarSincronizado(u.id)
+                Log.d("SYNC", "✔ Usuario sincronizado: ${u.nombre}")
+            } else {
+                Log.e("SYNC", "❌ Error al sincronizar usuario: ${u.nombre}")
+                return@withContext
             }
         }
 
-        // 2️⃣ Puntajes
-        val puntajesPend = db.puntajeDao().getPendientes()
+        // 2️⃣ Puntajes pendientes
+        val puntajesPend = dbroom.puntajeDao().getPendientes()
+        Log.d("SYNC", "Puntajes pendientes por sincronizar: ${puntajesPend.size}")
+
         for (p in puntajesPend) {
+
             val json = JSONObject().apply {
                 put("action", "enviarPuntaje")
                 put("usuario", p.usuario)
@@ -103,15 +121,23 @@ class SyncRepository(
                 put("fecha", p.fecha)
             }
 
-            if (GoogleSheetsService.enviarPostSimple(json)) {
-                db.puntajeDao().marcarSincronizado(p.id)
+            val enviado = GoogleSheetsService.enviarPostSimple(json)
+
+            if (enviado) {
+                dbroom.puntajeDao().marcarSincronizado(p.id)
+                Log.d("SYNC", "✔ Puntaje sincronizado: usuario=${p.usuario}, puntaje=${p.puntaje}")
+            } else {
+                Log.e("SYNC", "❌ Error al sincronizar puntaje de ${p.usuario}")
+                return@withContext
             }
         }
+
+        Log.d("SYNC", "✔ Sincronización completada sin errores.")
     }
 
 
     // -------------------------------------------------
-    //          BORRADO BIDIRECCIONAL (sin cambios)
+    //          ELIMINAR PARTIDA
     // -------------------------------------------------
 
     suspend fun eliminarPutajeBidireccional(puntaje: Puntaje) =
@@ -125,7 +151,7 @@ class SyncRepository(
             }
 
             if (GoogleSheetsService.enviarPostSimple(json)) {
-                db.puntajeDao().eliminarPuntaje(puntaje)
+                dbroom.puntajeDao().eliminarPuntaje(puntaje)
             }
         }
 }

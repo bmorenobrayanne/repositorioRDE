@@ -10,9 +10,9 @@ class SyncViewModel(private val repo: SyncRepository) : ViewModel() {
     private val _syncCompletada = MutableLiveData<Boolean>()
     val syncCompletada: LiveData<Boolean> get() = _syncCompletada
 
-    fun sincronizarTodo() = viewModelScope.launch {
+    fun sincronizarTodo(context: Context) = viewModelScope.launch {
         repo.sincronizarUsuariosPendientes()
-        repo.sincronizarTodo()
+        repo.sincronizarTodo(context)
         _syncCompletada.postValue(true)
     }
 }

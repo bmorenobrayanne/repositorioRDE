@@ -1,6 +1,7 @@
 package com.example.rdekids.worker
 
 import android.content.Context
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.rdekids.myApp.MyApp
@@ -19,10 +20,11 @@ class SyncWorker(
             val app = ctx.applicationContext as MyApp
 
             // Construir repo correctamente
-            val repo = SyncRepository(app.db, ctx)
+            val repo = SyncRepository(app.dbroom, ctx)
 
             // Ejecutar sincronización
-            repo.sincronizarTodo()
+            repo.sincronizarTodo(applicationContext)
+
 
             Result.success()
 

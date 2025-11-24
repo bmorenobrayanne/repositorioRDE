@@ -17,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import androidx.lifecycle.ViewModelProvider
 import com.airbnb.lottie.LottieAnimationView
 import com.example.rdekids.local.dao.JuegoDAO
 import com.example.rdekids.local.AppDatabase
@@ -35,6 +36,9 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.rdekids.R
 import com.example.rdekids.iu.login.MainActivity
+import com.example.rdekids.local.factory.PuntajeViewModelFactory
+import com.example.rdekids.local.viewModel.PuntajeViewModel
+import com.example.rdekids.myApp.MyApp
 
 class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
@@ -62,6 +66,9 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private lateinit var dao: JuegoDAO
     private lateinit var tts: TextToSpeech
     private var mediaPlayer: MediaPlayer? = null
+
+    private lateinit var puntajeViewModel: PuntajeViewModel
+
 
     // Modelo de preguntas (texto o imagen)
     data class Pregunta(
@@ -121,6 +128,9 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_juego)
+        val app = application as MyApp
+        val factory = PuntajeViewModelFactory(app.syncRepo) // si tienes una factory
+        puntajeViewModel = ViewModelProvider(this, factory).get(PuntajeViewModel::class.java)
 
         dao = JuegoDAO(this)
         tts = TextToSpeech(this, this)
@@ -496,22 +506,18 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         val victory = MediaPlayer.create(this, R.raw.victoria)
         victory.start()
 
-        dao.guardarPartida()
+        dao.guardarPartida() // si esto sigue siendo necesario
 
         val usuarioActual = SessionManager.obtenerUsuario(this) ?: "Invitado"
+
+        // Enviar a Google Sheets (si hay internet)
         GoogleSheetsService.enviarDatos(usuarioActual, puntaje)
 
-        val p = Puntaje(usuario = usuarioActual, puntaje = puntaje, synced = false)
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                AppDatabase.getDatabase(this@JuegoActivity)
-                    .puntajeDao()
-                    .insert(p)
-            } catch (e: Exception) {
-                Log.e("JuegoActivity", "Error guardando puntaje: ${e.message}")
-            }
-        }
+        // Guardar localmente usando ViewModel
+        val plocal = Puntaje(usuario = usuarioActual, puntaje = puntaje, synced = false)
+        puntajeViewModel.guardarPuntaje(plocal)
 
+        // Programar sincronización automática
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
@@ -528,7 +534,7 @@ class JuegoActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             Toast.makeText(this, "¡Juego terminado! Puntaje: $puntaje", Toast.LENGTH_LONG).show()
         }
 
-        // Volver al inicio (ajusta la activity si tu pantalla inicial no es MainActivity)
+        // Volver al inicio
         val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         startActivity(intent)

@@ -65,10 +65,6 @@ class UsuarioViewModel(
         }
     }
 
-    fun iniciarSesion(correo: String, contrasena: String) = viewModelScope.launch {
-        val usuario = repo.iniciarSesionLocal(correo, contrasena)
-        _resultadoLogin.postValue(usuario)
-    }
     private fun hayInternet(): Boolean {
         val cm = appContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val network = cm.activeNetwork ?: return false

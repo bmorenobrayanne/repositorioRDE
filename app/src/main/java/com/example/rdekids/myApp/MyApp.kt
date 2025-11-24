@@ -3,22 +3,22 @@ package com.example.rdekids.myApp
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
-import com.example.rdekids.local.AppDatabase
+import com.example.rdekids.local.AppDataBaseRoom
 import com.example.rdekids.repository.SyncRepository
 
 class MyApp : Application() {
 
     // Base de datos local (Room)
-    val db: AppDatabase by lazy {
+    val dbroom: AppDataBaseRoom by lazy {
         Room.databaseBuilder(
             this as Context,
-            AppDatabase::class.java,
-            "rde_database"
+            AppDataBaseRoom::class.java,
+            "room_database_rde"
         ).build()
     }
 
     // Repositorio central encargado de sincronización
     val syncRepo: SyncRepository by lazy {
-        SyncRepository(db, this)
+        SyncRepository(dbroom, this)
     }
 }
