@@ -34,13 +34,19 @@ class PartidasAdapter(
         holder.itemPuntaje.text = "Puntaje: ${p.puntaje}"
         holder.itemFecha.text = "Fecha: ${p.fecha}"
 
+        // Botón de eliminar
         holder.btnEliminar.setOnClickListener {
+            // Llamamos al callback si existe
             onEliminarClick?.invoke(p)
         }
     }
 
     override fun getItemCount(): Int = partidas.size
 
+    /**
+     * Actualiza la lista de partidas en el adapter y notifica cambios.
+     * Esto permite que LiveData o el ViewModel actualicen la UI fácilmente.
+     */
     fun actualizarLista(nuevaLista: List<Puntaje>) {
         partidas.clear()
         partidas.addAll(nuevaLista)

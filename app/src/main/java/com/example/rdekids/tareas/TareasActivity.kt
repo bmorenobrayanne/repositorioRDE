@@ -4,11 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rdekids.databinding.ActivityTareasBinding
 import com.example.rdekids.iu.adapter.PartidasAdapter
-import com.example.rdekids.local.entities.Puntaje
 import com.example.rdekids.local.viewModel.PuntajeViewModel
 import com.example.rdekids.repository.SyncRepository
 import com.example.rdekids.local.AppDataBaseRoom
@@ -29,11 +27,6 @@ class TareasActivity : AppCompatActivity() {
         binding = ActivityTareasBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Configurar RecyclerView y Adapter
-        adapter = PartidasAdapter(mutableListOf())
-        binding.recyclerPartidas.layoutManager = LinearLayoutManager(this)
-        binding.recyclerPartidas.adapter = adapter
-
         // Obtener el usuario actual desde SharedPreferences
         val prefs = getSharedPreferences("SesionUsuario", MODE_PRIVATE)
         val usuarioActual = prefs.getString("usuarioActual", null)
@@ -46,12 +39,30 @@ class TareasActivity : AppCompatActivity() {
             return
         }
 
-        // Observar LiveData del ViewModel
+        // Configurar RecyclerView y Adapter
+        adapter = PartidasAdapter(mutableListOf()) { puntaje ->
+            // Callback del botón eliminar
+            viewModel.eliminarPuntajeBidireccional(puntaje)
+        }
+        binding.recyclerPartidas.layoutManager = LinearLayoutManager(this)
+        binding.recyclerPartidas.adapter = adapter
+
+        // Observar LiveData de puntajes
         viewModel.puntajesLiveData.observe(this) { lista ->
             adapter.actualizarLista(lista)
         }
 
-        // Cargar partidas offline
+        // Cargar partidas offline al iniciar
         viewModel.cargarPartidasOffline(usuarioActual)
+
+
+        // Observar LiveData de eliminación exitosa
+        viewModel.eliminadoExitoso.observe(this) { exito ->
+            if (exito) {
+                Toast.makeText(this, "Partida No disponible", Toast.LENGTH_SHORT).show()
+                // Recargar lista desde Room
+                viewModel.cargarPartidasOffline(usuarioActual)
+            }
+        }
     }
 }
