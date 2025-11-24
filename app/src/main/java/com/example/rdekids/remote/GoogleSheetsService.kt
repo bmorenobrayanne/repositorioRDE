@@ -12,13 +12,15 @@ import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
 import android.content.Context
+import com.example.rdekids.model.Partida
 import com.example.rdekids.session.OfflineQueueManager
 
 object GoogleSheetsService {
 
     private const val SCRIPT_URL =
         "https://script.google.com/macros/s/AKfycbxP2gc8Xn9dkt3S_T9p5NoMJrgo2jEjRdp7gw5-NZ1HXFwQi_GyiDdVRz1xMOmAivey/exec"
-
+    private const val SCRIPT_URL_PARTIDAS =
+        "https://script.google.com/macros/s/AKfycbxaOA0IBMPHozUgMPRWUTERGVdCbON6RalupZXG9P367UdAx_L9EBYa8OGgpOPp74NA/exec"
     fun enviarDatos(usuario: String, puntaje: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -176,6 +178,41 @@ object GoogleSheetsService {
             code == 200
         } catch (e: Exception) {
             false
+        }
+    }
+
+    fun obtenerUltimasPartidas(usuario: String, callback: (List<Partida>?) -> Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val url = URL("$SCRIPT_URL_PARTIDAS?action=getUltimasPartidas&usuario=$usuario")
+                val conn = url.openConnection() as HttpURLConnection
+                conn.requestMethod = "GET"
+
+                val response = BufferedReader(InputStreamReader(conn.inputStream)).use { it.readText() }
+
+                Log.d("PARTIDAS", "Respuesta servidor: $response")
+
+                val jsonArray = JSONArray(response)
+                val lista = mutableListOf<Partida>()
+
+                for (i in 0 until jsonArray.length()) {
+                    val item = jsonArray.getJSONObject(i)
+
+                    val u = item.optString("usuario")
+                    val p = item.optInt("puntaje")
+                    val f = item.optString("fecha")
+
+                    if (u.isNotEmpty()) {
+                        lista.add(Partida(u, p, f))
+                    }
+                }
+
+                callback(lista)
+
+            } catch (e: Exception) {
+                Log.e("GoogleSheetsError", "Error al obtener partidas: ${e.message}")
+                callback(null)
+            }
         }
     }
 

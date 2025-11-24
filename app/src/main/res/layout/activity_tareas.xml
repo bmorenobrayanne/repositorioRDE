@@ -1,34 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@drawable/fondo_juego"
     android:padding="20dp">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tituloPartidas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="PARTIDAS JUGADAS"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:layout_marginBottom="20dp" />
 
-        <!-- TÍTULO -->
-        <TextView
-            android:id="@+id/tituloPartidas"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="PARTIDAS JUGADAS"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="24sp"
-            android:gravity="center"
-            android:layout_marginBottom="20dp" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerPartidas"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-        <!-- RECYCLER PARA TARJETAS -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerPartidas"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false"
-            android:overScrollMode="never"/>
-
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>
