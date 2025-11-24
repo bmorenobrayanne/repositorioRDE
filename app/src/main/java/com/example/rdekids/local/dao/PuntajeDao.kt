@@ -20,4 +20,17 @@
 
         @Delete
         suspend fun eliminarPuntaje(puntaje: Puntaje)
+
+
+        // --- Offline: nuevas funciones ---
+        @Insert
+        suspend fun insertarLocal(puntaje: Puntaje)
+
+        @Query("SELECT * FROM puntaje ORDER BY fecha DESC")
+        suspend fun obtenerTodosLosPuntajes(): List<Puntaje>
+
+        @Query("DELETE FROM puntaje WHERE id = :id")
+        suspend fun eliminarLocal(id: Int)
+
+
     }

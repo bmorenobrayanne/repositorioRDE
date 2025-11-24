@@ -1,16 +1,17 @@
 package com.example.rdekids.iu.adapter
 
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.rdekids.R
-import com.example.rdekids.model.Partida
+import com.example.rdekids.local.entities.Puntaje
 
 class PartidasAdapter(
-    private val partidas: List<Partida>,
-    private val onEliminarClick: ((Partida) -> Unit)? = null
+    private val partidas: MutableList<Puntaje>,
+    private val onEliminarClick: ((Puntaje) -> Unit)? = null
 ) : RecyclerView.Adapter<PartidasAdapter.PartidaViewHolder>() {
 
     inner class PartidaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -39,4 +40,10 @@ class PartidasAdapter(
     }
 
     override fun getItemCount(): Int = partidas.size
+
+    fun actualizarLista(nuevaLista: List<Puntaje>) {
+        partidas.clear()
+        partidas.addAll(nuevaLista)
+        notifyDataSetChanged()
+    }
 }

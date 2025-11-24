@@ -9,6 +9,16 @@ import kotlinx.coroutines.launch
 
 class PuntajeViewModel(private val repo: SyncRepository) : ViewModel() {
 
+    val puntajesLiveData = MutableLiveData<List<Puntaje>>()
+
+    // Función para cargar puntajes offline
+    fun cargarPartidasOffline(usuario: String) {
+        viewModelScope.launch {
+            val lista = repo.obtenerPuntajesOffline(usuario)
+            puntajesLiveData.value = lista
+        }
+    }
+
     private val _puntajesUsuario = MutableLiveData<List<Puntaje>>()
     val puntajesUsuario: LiveData<List<Puntaje>> get() = _puntajesUsuario
 

@@ -4,13 +4,18 @@ package com.example.rdekids.repository
 import android.content.Context
 import android.util.Log
 import com.example.rdekids.local.AppDataBaseRoom
+import com.example.rdekids.local.dao.PuntajeDao
 import com.example.rdekids.remote.GoogleSheetsService
 import com.example.rdekids.local.entities.Puntaje
 import com.example.rdekids.local.entities.Usuario
 import com.example.rdekids.utils.NetworkUtils.hayInternet
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
+import org.json.JSONArray
 import org.json.JSONObject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 class SyncRepository(
     private val dbroom: AppDataBaseRoom,
@@ -154,4 +159,14 @@ class SyncRepository(
                 dbroom.puntajeDao().eliminarPuntaje(puntaje)
             }
         }
+
+    suspend fun obtenerPuntajesOffline(nombreJugador: String? = null): List<Puntaje> =
+        withContext(Dispatchers.IO) {
+            if (nombreJugador != null) {
+                dbroom.puntajeDao().obtenerPuntajesDeUsuario(nombreJugador)
+            } else {
+                dbroom.puntajeDao().obtenerTodosLosPuntajes()
+            }
+        }
+
 }
